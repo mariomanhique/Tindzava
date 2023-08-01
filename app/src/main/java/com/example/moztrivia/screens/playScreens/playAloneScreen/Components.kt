@@ -189,7 +189,7 @@ fun QuestionDisplay(question: QuestionItem,
 
 
 
-
+            if(questionIndex.value>=1) ShowProgress(score = questionIndex.value)
 
             Row(modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -202,12 +202,10 @@ fun QuestionDisplay(question: QuestionItem,
                         fontSize = 20.sp
                         )
                 }
-
                     Timer(currentTime = timer,
                         isTimeRunning = isRunning,
                         timeRunning = {
 //                            isRunning.value=it
-//
                         },
                         handleColor = Color.Green,
                         inactiveBarColor = Color.DarkGray,
@@ -227,20 +225,15 @@ fun QuestionDisplay(question: QuestionItem,
                                    )
 
                                }
-
-
-
                     }
-
-
                 Column(modifier = Modifier
-                    .width(60.dp)
-                    .height(60.dp),
+                    .width(50.dp)
+                    .height(50.dp),
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally) {
                     Image(painter = painterResource(id =R.drawable.heart),
                         contentDescription = "",
-                        modifier = Modifier.size(40.dp))
+                        modifier = Modifier.size(30.dp))
                     Text(text = "$livesCount",
                         fontWeight = FontWeight.Bold,
                         color = AppColors.mRed,
@@ -251,8 +244,6 @@ fun QuestionDisplay(question: QuestionItem,
             }
 
 
-            if(questionIndex.value>=1) ShowProgress(score = questionIndex.value)
-
             QuestionTracker(counter = questionIndex.value,
                             viewModel.data.value.data!!.size)
 
@@ -261,7 +252,7 @@ fun QuestionDisplay(question: QuestionItem,
                 Card(modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.4f)
-                    .padding(4.dp),
+                    .padding(2.dp),
                     colors = CardDefaults.cardColors(AppColors.mYellow),
                 elevation = CardDefaults.cardElevation(5.dp)) {
                     Row(modifier = Modifier.fillMaxSize(),
@@ -270,23 +261,21 @@ fun QuestionDisplay(question: QuestionItem,
                             modifier = Modifier
                             .padding(start = 10.dp, end = 10.dp)
                             .align(alignment = Alignment.CenterVertically),
-                            fontSize = 25.sp,
-                            fontWeight = FontWeight.Bold,
+                            fontSize = 23.sp,
+                            fontWeight = FontWeight.Normal,
                             textAlign = TextAlign.Justify,
-                            lineHeight = 30.sp,
+                            lineHeight = 25.sp,
                             color = AppColors.mOffWhite)
                     }
 
             }
 
-                Spacer(modifier = Modifier.padding(20.dp))
-
                 choicesState.forEachIndexed{index, answerText ->
 
                     Row(modifier = Modifier
-                        .padding(top = 15.dp)
+                        .padding(top = 10.dp)
                         .fillMaxWidth()
-                        .height(60.dp)
+                        .height(53.dp)
                         .border(
                             width = 2.dp, color = Color.White,
                             shape = CircleShape.copy(all = CornerSize(15.dp))
@@ -306,9 +295,7 @@ fun QuestionDisplay(question: QuestionItem,
                         var checkCorrectAnswer=correctAnswerState.value == true && index == answerState.value
                         //Fix Deselection of RadioButtons after one is selected TODO
 //                        SideEffect {
-//
 //                        }
-
 
                         RadioButton(selected =answerState.value==index,
                             enabled = isAnswered,
@@ -350,8 +337,6 @@ fun QuestionDisplay(question: QuestionItem,
 
                                 }
 
-
-
                                 CoroutineScope(Dispatchers.Main).launch {
                                     if(checkCorrectAnswer){
                                         updateAnswer(index)
@@ -360,7 +345,6 @@ fun QuestionDisplay(question: QuestionItem,
 //                                        isRunning.value=false
                                         Toast.makeText(context,"${isRunning.value}",Toast.LENGTH_LONG).show()
                                         timer.value =10L*1000L
-
 
                                     } else {
                                         updateAnswer(index)
@@ -377,8 +361,6 @@ fun QuestionDisplay(question: QuestionItem,
                                 }
 
                                 onUpdate(playerUpdate)
-
-
 
                             }, modifier = Modifier.padding(start = 16.dp),
                             colors = RadioButtonDefaults.colors(
@@ -484,11 +466,11 @@ fun ShowProgress(score:Int=2){
     Row(modifier = Modifier
         .padding(4.dp)
         .fillMaxWidth()
-        .height(45.dp)
+        .height(15.dp)
         .border(
-            width = 4.dp, brush = Brush.linearGradient(
+            width = 2.dp, brush = Brush.linearGradient(
                 colors = listOf(
-                    AppColors.mLightPurple, AppColors.mLightPurple
+                    AppColors.mOffWhite, AppColors.mOffWhite
                 )
             ),
             shape = RoundedCornerShape(34.dp)
@@ -517,17 +499,17 @@ fun ShowProgress(score:Int=2){
         ) {
 
           //Fix Score Display  TODO
-
-            Row() {
-                Text(text = (score * 2).toString(),
-                    modifier = Modifier
-                        .clip(shape = RoundedCornerShape(23.dp))
-                        .fillMaxHeight(0.87f)
-                        .fillMaxWidth()
-                        .padding(6.dp),
-                    color = AppColors.mOffWhite,
-                    textAlign = TextAlign.Center)
-            }
+//
+//            Row() {
+//                Text(text = (score * 2).toString(),
+//                    modifier = Modifier
+//                        .clip(shape = RoundedCornerShape(23.dp))
+//                        .fillMaxHeight(0.87f)
+//                        .fillMaxWidth()
+//                        .padding(6.dp),
+//                    color = AppColors.mOffWhite,
+//                    textAlign = TextAlign.Center)
+//            }
 
         }
 

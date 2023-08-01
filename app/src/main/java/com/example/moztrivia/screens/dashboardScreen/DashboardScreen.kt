@@ -98,7 +98,7 @@ fun DashboardScreen(navController: NavController,
                 letterSpacing = 1.sp,
                 fontSize = 25.sp)
 
-            Spacer(modifier = Modifier.height(50.dp))
+            Spacer(modifier = Modifier.height(30.dp))
 
 
             Text(text = "GAME OVER", modifier = Modifier.fillMaxHeight(0.1f),

@@ -6,8 +6,14 @@ import androidx.room.RoomDatabase
 import com.example.moztrivia.data.playerData.PlayerDatabase
 import com.example.moztrivia.data.playerData.PlayerDatabaseDao
 import com.example.moztrivia.network.QuestionAPI
-import com.example.moztrivia.repository.QuestionRepository
+import com.example.moztrivia.repositories.firebaseRepository.AuthRepository
+import com.example.moztrivia.repositories.firebaseRepository.AuthRepositoryImpl
+import com.example.moztrivia.repositories.repository.QuestionRepository
 import com.example.moztrivia.util.Constants
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,4 +55,22 @@ object AppModule  {
         PlayerDatabase::class.java,
         name="player_db"
     ).fallbackToDestructiveMigration().build()
+
+
+    @Singleton
+    @Provides
+    fun provideFirebaseDatabase():DatabaseReference
+    =FirebaseDatabase.getInstance().reference
+
+    @Singleton
+    @Provides
+    fun provideFirebaseAuth():FirebaseAuth
+    =FirebaseAuth.getInstance()
+
+    @Singleton
+    @Provides
+    fun provideAuthRepositoryImpl(auth: AuthRepositoryImpl):AuthRepository{
+        return auth
+    }
+
 }

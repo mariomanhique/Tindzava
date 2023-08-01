@@ -168,9 +168,9 @@ fun HomeScreen(navController: NavController,
                 fontSize = 22.sp
             )
 
-            Spacer(modifier = Modifier.padding(50.dp))
+            Spacer(modifier = Modifier.padding(30.dp))
 
-            Text(text = "Jogar", modifier = Modifier.fillMaxHeight(0.1f),
+            Text(text = "Jogar", modifier = Modifier,
                 style = MaterialTheme.typography.headlineLarge,
                 fontWeight = FontWeight.ExtraBold,
                 color = AppColors.mOffWhite,
@@ -179,7 +179,6 @@ fun HomeScreen(navController: NavController,
             )
 
             Button(onClick = {
-
                 CoroutineScope(Dispatchers.Main).launch{
                         mp.start()
                         delay(300L)
@@ -192,10 +191,6 @@ fun HomeScreen(navController: NavController,
                                 }
                             })
                     }
-                    //else
-                    //alert diolog
-
-
                 }
 
             }, modifier = Modifier

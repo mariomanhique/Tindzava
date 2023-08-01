@@ -1,4 +1,4 @@
-package com.example.moztrivia.repository
+package com.example.moztrivia.repositories.repository
 
 import android.util.Log
 import com.example.moztrivia.data.questionsData.DataOrException

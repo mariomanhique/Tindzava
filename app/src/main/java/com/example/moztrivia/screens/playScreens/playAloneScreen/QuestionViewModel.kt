@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moztrivia.data.questionsData.DataOrException
 import com.example.moztrivia.model.questionsModel.QuestionItem
-import com.example.moztrivia.repository.QuestionRepository
+import com.example.moztrivia.repositories.repository.QuestionRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.lang.Exception
