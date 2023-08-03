@@ -23,6 +23,7 @@ import com.example.moztrivia.screens.splashScreen.SplashScreen
 fun AppNavHost(viewModel: QuestionViewModel= hiltViewModel(),
                onUpdate:(Player)->Unit,
                playerViewModel: PlayerViewModel,createPlayer:(Player)->Unit){
+
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination= NavScreens.SplashScreen.name){
@@ -45,12 +46,16 @@ fun AppNavHost(viewModel: QuestionViewModel= hiltViewModel(),
 
             var result = it.arguments!!.getString("score")?.split("&")
 //            var list = listOf(result)
-            DashboardScreen(navController = navController,
-                score = result!![0].toInt(), rightAnswers = result[1].toInt(), wrongAnswers = result[2].toInt())
+            DashboardScreen(
+                navController = navController,
+                score = result!![0].toInt(),
+                rightAnswers = result[1].toInt(),
+                wrongAnswers = result[2].toInt())
         }
 
         composable(NavScreens.HomeScreen.name){
-            HomeScreen(navController=navController,
+            HomeScreen(
+                navController=navController,
                 playerViewModel = playerViewModel)
         }
 
@@ -68,7 +73,9 @@ fun AppNavHost(viewModel: QuestionViewModel= hiltViewModel(),
         }
 
         composable(NavScreens.ProfileScreen.name){
+
             ProfileScreen(navController = navController)
+
         }
     }
 

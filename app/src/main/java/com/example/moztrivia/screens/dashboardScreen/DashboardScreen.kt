@@ -1,21 +1,17 @@
 package com.example.moztrivia.screens.dashboardScreen
 
 import android.media.MediaPlayer
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
-import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
 import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutHorizontally
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,9 +20,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -35,7 +29,6 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
@@ -45,7 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,14 +45,33 @@ import androidx.navigation.NavController
 import com.example.moztrivia.R
 import com.example.moztrivia.navigation.NavScreens
 import com.example.moztrivia.util.AppColors
+import com.example.moztrivia.widgets.HandleBackButtonPress
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
+
 
 @Composable
 fun DashboardScreen(navController: NavController,
+                    score:Int=4,
+                    wrongAnswers:Int=1,
+                    rightAnswers:Int=1){
+
+    val context = LocalContext.current
+    Result(navController =navController,
+            score = score,
+            wrongAnswers = wrongAnswers,
+            rightAnswers = rightAnswers)
+
+    HandleBackButtonPress {
+
+        Toast.makeText(context,"Pressed",Toast.LENGTH_SHORT).show()
+    }
+
+}
+@Composable
+fun Result(navController: NavController,
                     score:Int=4,
                     wrongAnswers:Int=1,
                     rightAnswers:Int=1
@@ -218,14 +229,9 @@ fun DashboardScreen(navController: NavController,
                     delay(250L)
                     if(mp.isPlaying) mp.stop()
 
-                    navController.navigate(
-                        route = NavScreens.PlayAloneScreen.name,
-                        builder = {
-                            popUpTo(NavScreens.DashboardScreen.name){
-                                inclusive = true
-                            }
-                        }
-                    )
+                    navController.popBackStack(NavScreens.PlayAloneScreen.name,inclusive = false)
+
+
                 }
 
             }, modifier = Modifier
@@ -249,16 +255,8 @@ fun DashboardScreen(navController: NavController,
                     delay(250L)
                     if(mp.isPlaying) mp.stop()
 
-                    navController.navigate(
-                        route = NavScreens.HomeScreen.name,
-                        builder = {
-
-                            popUpTo(route = NavScreens.DashboardScreen.name){
-                                inclusive=true
-                            }
-
-                        }
-                    )
+                    //This allows me fall back to HomeScreen and erasing dash from stack.
+                    navController.popBackStack(NavScreens.HomeScreen.name,inclusive = false)
                 }
 
             }, modifier = Modifier

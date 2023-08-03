@@ -3,9 +3,7 @@ package com.example.moztrivia.model.authViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moztrivia.repositories.firebaseRepository.AuthRepository
-import com.example.moztrivia.repositories.firebaseRepository.AuthRepositoryImpl
 import com.example.moztrivia.repositories.firebaseRepository.Resource
-import com.example.moztrivia.screens.onBoardScreens.audioPlayer
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -42,7 +40,6 @@ class AuthViewModel @Inject constructor(private val authRepository: AuthReposito
     }
 
     fun signOut(){
-
         authRepository.logout()
         _loginFlow.value=null
         _signUpFlow.value=null

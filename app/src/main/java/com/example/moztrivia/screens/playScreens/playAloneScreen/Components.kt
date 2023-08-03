@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -216,13 +215,14 @@ fun QuestionDisplay(question: QuestionItem,
                                CoroutineScope(Dispatchers.Main).launch {
                                    delay(1300L)
                                    navController.navigate(
-                                       route=NavScreens.DashboardScreen.name+"/$score&$rightAnswers&$wrongAnswers",
-                                       builder = {
-                                           popUpTo(NavScreens.PlayAloneScreen.name){
-                                               inclusive=true
-                                           }
-                                       }
-                                   )
+                                       route=NavScreens.DashboardScreen.name+"/$score&$rightAnswers&$wrongAnswers"
+                                   ){
+
+
+                                       launchSingleTop=true
+
+                                       restoreState=true
+                                   }
 
                                }
                     }
@@ -342,7 +342,6 @@ fun QuestionDisplay(question: QuestionItem,
                                         updateAnswer(index)
                                         delay(500L)
                                         onNextQuestion(questionIndex.value)
-//                                        isRunning.value=false
                                         Toast.makeText(context,"${isRunning.value}",Toast.LENGTH_LONG).show()
                                         timer.value =10L*1000L
 

@@ -21,8 +21,7 @@ class QuestionViewModel @Inject constructor(private val repository: QuestionRepo
     init {
         getAllQuestion()
     }
-    private fun getAllQuestion(){
-        viewModelScope.launch {
+    private fun getAllQuestion() = viewModelScope.launch {
             data.value.loading=true
             data.value=repository.getAllQuestion()
 
@@ -30,6 +29,6 @@ class QuestionViewModel @Inject constructor(private val repository: QuestionRepo
                 data.value.loading=false
             }
         }
-    }
+
 
 }

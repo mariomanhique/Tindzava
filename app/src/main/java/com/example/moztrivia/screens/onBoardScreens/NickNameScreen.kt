@@ -1,8 +1,6 @@
 package com.example.moztrivia.screens.onBoardScreens
 
-import android.content.Context
 import android.media.MediaPlayer
-import android.os.Handler
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
@@ -12,14 +10,12 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -30,7 +26,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.getValue
@@ -43,16 +38,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moztrivia.R
 import com.example.moztrivia.model.playerModel.PlayerViewModel
 import com.example.moztrivia.navigation.NavScreens
 import com.example.moztrivia.util.AppColors
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -67,21 +59,21 @@ private fun stopSound(mp:MediaPlayer) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NicknameScreen(navController: NavController,playerViewModel: PlayerViewModel){
+fun NicknameScreen(navController: NavController,
+                   playerViewModel: PlayerViewModel){
 
     val context= LocalContext.current
     val mp: MediaPlayer= MediaPlayer.create(context,R.raw.sound_one)
 
-
-
-
     var nickname by remember {
         mutableStateOf("")
     }
+
     var visible by remember { mutableStateOf(true) }
+
     AnimatedVisibility(
         visible = visible,
-        enter = slideInHorizontally(animationSpec = tween(durationMillis =200)) { fullWidth ->
+        enter = slideInHorizontally(animationSpec = tween(durationMillis =200, delayMillis = 200)) { fullWidth ->
             // Offsets the content by 1/3 of its width to the left, and slide towards right
             // Overwrites the default animation with tween for this slide animation.
             -fullWidth/2
@@ -108,13 +100,6 @@ fun NicknameScreen(navController: NavController,playerViewModel: PlayerViewModel
                 modifier = Modifier.padding(bottom = 40.dp)
             )
 
-//        Text(text = "Hoyo Hoyo",
-//            style = MaterialTheme.typography.headlineLarge,
-//            fontWeight = FontWeight.ExtraBold,
-//            color = AppColors.mOffWhite,
-//            letterSpacing = 4.sp,
-//            fontSize = 40.sp, modifier = Modifier.padding(bottom = 40.dp)
-//        )
 
             Text(text = "Escolha um apelido para continuar.",
                 style = MaterialTheme.typography.titleMedium,

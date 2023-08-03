@@ -8,7 +8,6 @@ import javax.inject.Inject
 
 class QuestionRepository @Inject constructor(private val api: QuestionAPI) {
 
-//    private val listOfQuestion = ArrayList<QuestionItem>(emptyList())
     private val dataOrException = DataOrException<
         ArrayList<QuestionItem>,
         Boolean,
@@ -16,12 +15,10 @@ class QuestionRepository @Inject constructor(private val api: QuestionAPI) {
 
     //we call this dataOrException a metaData
 
-
     suspend fun getAllQuestion(): DataOrException<ArrayList<QuestionItem>, Boolean, Exception> {
         try {
             dataOrException.loading=true
             dataOrException.data=api.getAllQuestion()
-
             if(dataOrException.data.toString().isNotEmpty()){
                 dataOrException.loading=false
             }

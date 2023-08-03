@@ -18,7 +18,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -32,12 +31,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.moztrivia.R
 import com.example.moztrivia.model.playerModel.PlayerViewModel
 import com.example.moztrivia.navigation.NavScreens
-import com.example.moztrivia.screens.onBoardScreens.stop
 import com.example.moztrivia.util.AppColors
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -184,12 +181,16 @@ fun HomeScreen(navController: NavController,
                         delay(300L)
 
                     if(player?.lives!=0){
-                        navController.navigate(route = NavScreens.PlayAloneScreen.name,
-                            builder = {
-                                popUpTo(NavScreens.HomeScreen.name){
-                                    inclusive = true
-                                }
-                            })
+                        navController.navigate(route = NavScreens.PlayAloneScreen.name){
+
+//                            popUpTo(NavScreens.HomeScreen.name){
+//                                inclusive=true
+//                            }
+
+                            launchSingleTop=true
+
+                            restoreState=true
+                        }
                     }
                 }
 

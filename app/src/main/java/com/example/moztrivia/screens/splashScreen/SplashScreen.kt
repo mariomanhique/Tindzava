@@ -6,10 +6,8 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -17,13 +15,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
-import com.example.moztrivia.R
 import com.example.moztrivia.model.playerModel.PlayerViewModel
 import com.example.moztrivia.navigation.NavScreens
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Delay
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -33,7 +28,7 @@ fun SplashScreen(navController: NavController,playerViewModel: PlayerViewModel){
     val player = playerViewModel.player.collectAsState()
 
     val scale = remember {
-        Animatable(3f)
+        Animatable(0f)
     }
 
     //the key the set to true, means that the value will never change and the coroutine will run once.
@@ -42,8 +37,9 @@ fun SplashScreen(navController: NavController,playerViewModel: PlayerViewModel){
             targetValue = 5f,
         animationSpec = tween(
             durationMillis = 500,
+            delayMillis = 400,
            easing = {
-               OvershootInterpolator(2f).getInterpolation(it)
+               OvershootInterpolator(4f).getInterpolation(it)
            }
         ))
         delay(3000L)
