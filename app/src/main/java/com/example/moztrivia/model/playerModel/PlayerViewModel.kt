@@ -2,15 +2,12 @@ package com.example.moztrivia.model.playerModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.moztrivia.data.playerData.PlayerDatabaseDao
-import com.example.moztrivia.repositories.playerRepository.PlayerRepository
-import com.example.moztrivia.util.UUIDConverter
+import com.example.moztrivia.data.repositories.playerRepository.PlayerRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -23,20 +20,24 @@ class PlayerViewModel @Inject constructor(private val repository: PlayerReposito
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.getPlayer().distinctUntilChanged().collect(){playerId->
-                if (playerId!=null){
-                    _player.value=playerId
+            repository.getPlayer().collect{player->
+
+                if(player!=null){
+                    _player.value=player
                 }
+
             }
         }
     }
 
-    fun createPlayer(player: Player)=viewModelScope.launch {
+    fun createPlayer(player: Player)=viewModelScope.launch(Dispatchers.IO) {
         repository.createPlayer(player = player)
     }
 
-    fun updateLives(player: Player) = viewModelScope.launch {
+    fun updateLives(player: Player) = viewModelScope.launch(Dispatchers.IO) {
+
         repository.updateLives(player = player)
+
     }
 
 

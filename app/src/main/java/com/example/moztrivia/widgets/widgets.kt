@@ -8,8 +8,6 @@ import androidx.compose.runtime.Composable
 fun HandleBackButtonPress(
     onBackPressed: () -> Unit
 ) {
-    val backDispatcher = LocalOnBackPressedDispatcherOwner.current
-
     BackHandler(enabled = true) {
         onBackPressed.invoke()
     }

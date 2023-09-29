@@ -3,7 +3,7 @@ package com.example.moztrivia.navigation
 enum class NavScreens {
     SplashScreen,
     HomeScreen,
-    PlayOnlineScreen,
+    PlayOnline,
     DashboardScreen,
     NicknameScreen,
     AgeScreen,

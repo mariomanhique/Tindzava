@@ -14,7 +14,7 @@ data class Player(
     @ColumnInfo(name = "age")
     val age:Int,
     @ColumnInfo(name="score")
-    var score:Int=0,
+    var score:Int,
     @ColumnInfo(name = "lives")
-    var lives: Int = 3
+    var lives: Int = 3,
 )

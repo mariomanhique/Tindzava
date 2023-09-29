@@ -9,20 +9,28 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.moztrivia.model.playerModel.Player
 import com.example.moztrivia.model.playerModel.PlayerViewModel
-import com.example.moztrivia.screens.dashboardScreen.DashboardScreen
-import com.example.moztrivia.screens.homeScreen.HomeScreen
-import com.example.moztrivia.screens.onBoardScreens.AgeScreen
-import com.example.moztrivia.screens.onBoardScreens.NicknameScreen
-import com.example.moztrivia.screens.playScreens.playAloneScreen.QuestionViewModel
-import com.example.moztrivia.screens.playScreens.playAloneScreen.TriviaHome
-import com.example.moztrivia.screens.profileScreen.ProfileScreen
-import com.example.moztrivia.screens.splashScreen.SplashScreen
+import com.example.moztrivia.presentation.screens.authWithCredentials.AuthWithCredentialsViewModel
+import com.example.moztrivia.presentation.screens.authWithCredentials.signInWithCredencials.SignInScreen
+import com.example.moztrivia.presentation.screens.authWithCredentials.signUpWithCredentials.SignUpWithCredentials
+import com.example.moztrivia.presentation.screens.dashboardScreen.DashboardScreen
+import com.example.moztrivia.presentation.screens.homeScreen.HomeScreen
+import com.example.moztrivia.presentation.screens.onBoardScreens.AgeScreen
+import com.example.moztrivia.presentation.screens.onBoardScreens.NicknameScreen
+import com.example.moztrivia.presentation.screens.playScreens.playAloneScreen.QuestionViewModel
+import com.example.moztrivia.presentation.screens.playScreens.playAloneScreen.TriviaHome
+import com.example.moztrivia.presentation.screens.profileScreen.ProfileScreen
+import com.example.moztrivia.presentation.screens.splashScreen.SplashScreen
+import com.example.moztrivia.presentation.screens.playScreens.ranking.PlayOnline
 
 
 @Composable
-fun AppNavHost(viewModel: QuestionViewModel= hiltViewModel(),
+fun AppNavHost(
+                viewModel: QuestionViewModel = hiltViewModel(),
                onUpdate:(Player)->Unit,
-               playerViewModel: PlayerViewModel,createPlayer:(Player)->Unit){
+               playerViewModel: PlayerViewModel,
+               authViewModel: AuthWithCredentialsViewModel = hiltViewModel(),
+               createPlayer:(Player)->Unit){
+
 
     val navController = rememberNavController()
 
@@ -34,10 +42,6 @@ fun AppNavHost(viewModel: QuestionViewModel= hiltViewModel(),
 
         composable(NavScreens.PlayAloneScreen.name){
             TriviaHome(viewModel=viewModel, playerViewModel = playerViewModel,onUpdate=onUpdate,navController=navController)
-        }
-
-        composable(NavScreens.PlayOnlineScreen.name){
-
         }
 
         composable(NavScreens.DashboardScreen.name+"/{score}", arguments = listOf(navArgument(name = "score"){
@@ -56,7 +60,9 @@ fun AppNavHost(viewModel: QuestionViewModel= hiltViewModel(),
         composable(NavScreens.HomeScreen.name){
             HomeScreen(
                 navController=navController,
-                playerViewModel = playerViewModel)
+                playerViewModel = playerViewModel,
+                authViewModel = authViewModel
+                )
         }
 
         composable(NavScreens.NicknameScreen.name){
@@ -75,6 +81,31 @@ fun AppNavHost(viewModel: QuestionViewModel= hiltViewModel(),
         composable(NavScreens.ProfileScreen.name){
 
             ProfileScreen(navController = navController)
+
+        }
+
+        composable(NavScreens.LoginScreen.name){
+
+            SignInScreen(
+                navController = navController,
+                authViewModel=authViewModel
+                )
+
+        }
+
+        composable(NavScreens.SignUpScreen.name){
+
+         SignUpWithCredentials(
+             navController = navController,
+             authViewModel = authViewModel,
+             playerViewModel = playerViewModel
+             )
+
+        }
+
+        composable(NavScreens.PlayOnline.name){
+
+         PlayOnline(navController = navController)
 
         }
     }
